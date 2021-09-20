@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "115419548616",
+    "firebase_url": "https://miniproject-442bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "miniproject-442bd",
+    "storage_bucket": "miniproject-442bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115419548616:android:ca0d1b1f32422134cf8efd",
+        "android_client_info": {
+          "package_name": "com.vesit.fuel_ax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115419548616-1rb90ua1ce9pjin839coeeld3uhtmpge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANCdT9WR8v7OoTJKNkKdu7pikvI42jCb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115419548616-1rb90ua1ce9pjin839coeeld3uhtmpge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
