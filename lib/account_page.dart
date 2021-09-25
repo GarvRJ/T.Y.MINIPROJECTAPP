@@ -22,9 +22,7 @@ class _AccountPageState extends State<AccountPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder :(_) {
-          return const HomePage();
-          }))
+          Navigator.pop(context)
           },
           icon: Icon(Icons.arrow_back_ios_new_rounded, color: darkMode?Colors.black:Colors.white,),
         ),

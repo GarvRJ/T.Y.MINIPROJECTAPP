@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fuel_ax/account_page.dart';
 import 'package:fuel_ax/login_page.dart';
+import 'package:fuel_ax/plan_a_trip.dart';
 
 import 'constants.dart';
 
@@ -20,12 +21,55 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    List<String> states = ["Andaman-&-Nicobar","Andhra-Pradesh","Arunachal-Pradesh","Assam","Bihar","Chandigarh","Chhatisgarh","Dadra-Nagarhaveli","Daman-Diu","Delhi","Goa","Gujarat","Haryana","Himachal-Pradesh","Jammu-&-Kashmir","Jharkhand","Karnataka","Kerala","Madhya-Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Pondicherry","Punjab","Rajasthan","Sikkim","Tamil-Nadu","Telangana","Tripura","Uttar-Pradesh","Uttarakhand","West-Bengal"];
-    print(states[0]);
+
+    //List<String> states = ["Andaman-&-Nicobar","Andhra-Pradesh","Arunachal-Pradesh","Assam","Bihar","Chandigarh","Chhatisgarh","Dadra-Nagarhaveli","Daman-Diu","Delhi","Goa","Gujarat","Haryana","Himachal-Pradesh","Jammu-&-Kashmir","Jharkhand","Karnataka","Kerala","Madhya-Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Pondicherry","Punjab","Rajasthan","Sikkim","Tamil-Nadu","Telangana","Tripura","Uttar-Pradesh","Uttarakhand","West-Bengal"];
     var scaffoldKey = GlobalKey<ScaffoldState>();
     Size size = MediaQuery.of(context).size;
     bool darkMode = MediaQuery.of(context).platformBrightness==Brightness.dark;
     return Scaffold(
+      bottomSheet: Container(
+        color: darkMode?Colors.black:Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: (
+            ElevatedButton(
+              child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.map_rounded),
+                        SizedBox(
+                          width:15
+                        ),
+                        Text(
+                          "Plan A Trip",
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        SizedBox(
+                          width: 25,
+                        )
+                      ]
+                  )
+              ),
+              onPressed: () => {
+                Navigator.push(context, SlideRightRoute(page: const Trip()))
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 0.0,
+                shadowColor: Colors.white,
+                onPrimary: darkMode?Colors.black:Colors.white,
+                primary: kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            )
+        ),
+      ),
       key: scaffoldKey,
       drawer: Drawer(
         child: Container(
@@ -100,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: kPrimaryColor,
       ),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
         Container(
@@ -124,19 +168,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Hi ${FirebaseAuth.instance.currentUser!.displayName}!',
                     style: Theme.of(context).textTheme.headline5!.
                     copyWith(color: darkMode?Colors.black:Colors.white, fontWeight: FontWeight.bold),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                     icon: Icon(Icons.supervised_user_circle_rounded, color: darkMode?Colors.black:Colors.white, size: 50.0,),
                     onPressed: () =>
-                      {Navigator.of(context).pushReplacement(MaterialPageRoute(builder :(_) {
-                      return const AccountPage();
-                      })),}
+                      {Navigator.push(context, ScaleRoute(page: const AccountPage()))}
                   )
                 ],
               ),
@@ -147,15 +191,15 @@ class _HomePageState extends State<HomePage> {
               right: 0,
               child: Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 height: 54,
                 decoration: BoxDecoration(
                   color: darkMode?Colors.black:Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      offset: Offset(0, 10),
+                      offset: const Offset(0, 10),
                       blurRadius: 50,
                       color: kPrimaryColor.withOpacity(0.23),
                     ),
@@ -170,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal:0.0),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
-                                items: []
+                                items: const []
                             ),
                           ),
                       ),
@@ -181,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
-                          items: [
+                          items: const [
 
                           ],
                         )),
@@ -197,15 +241,15 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Flex(
                   direction: Axis.horizontal,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
@@ -213,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20.0),
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                   begin: Alignment.bottomLeft,
                                   end: Alignment.topRight,
                                   colors: [
@@ -224,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
                           height: 200,
-                          width: 300,
+                          width: size.width*0.75,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -256,9 +300,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Card(
-                        elevation: 5,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
@@ -266,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               begin: Alignment.bottomLeft,
                               end: Alignment.topRight,
                               colors: [
@@ -277,10 +321,11 @@ class _HomePageState extends State<HomePage> {
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
                           height: 200,
-                          width: 300,
+                          width: size.width*0.75,
                           child: Row(
                             children: [
                               Image(image: AssetImage(darkMode?'assets/fuelDark.png':'assets/fuelLight.png'),width: 100, height: 100,),
+                              const Spacer(),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -323,6 +368,64 @@ class _HomePageState extends State<HomePage> {
       return const LoginPage();
     }));
   }
+}
+
+class SlideRightRoute  extends PageRouteBuilder{
+  final Widget page;
+  SlideRightRoute({required this.page})
+      : super(
+    pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        ) =>
+    page,
+    transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+        ) =>
+        SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        ),
+  );
+}
+
+class ScaleRoute extends PageRouteBuilder {
+  final Widget page;
+  ScaleRoute({required this.page})
+      : super(
+    pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        ) =>
+    page,
+    transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+        ) =>
+        ScaleTransition(
+          alignment: Alignment.topRight,
+          scale: Tween<double>(
+            begin: 0.0,
+            end: 1.0,
+          ).animate(
+            CurvedAnimation(
+              parent: animation,
+              curve: Curves.fastOutSlowIn,
+            ),
+          ),
+          child: child,
+        ),
+  );
 }
 
 Future<List<String>> getStates() async{
