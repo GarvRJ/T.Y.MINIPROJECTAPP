@@ -3,10 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
-import 'home_page.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+  const AccountPage({Key key}) : super(key: key);
 
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -39,7 +38,7 @@ class _AccountPageState extends State<AccountPage> {
         backgroundColor: kPrimaryColor,
       ),
       body: SingleChildScrollView(
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -76,15 +75,15 @@ class _AccountPageState extends State<AccountPage> {
                     right: 0,
                     child: Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                      padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                       height: 54,
                       decoration: BoxDecoration(
                         color: darkMode?Colors.black:Colors.white,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            offset: Offset(0, 10),
+                            offset: const Offset(0, 10),
                             blurRadius: 50,
                             color: kPrimaryColor.withOpacity(0.23),
                           ),
@@ -95,8 +94,8 @@ class _AccountPageState extends State<AccountPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            '${FirebaseAuth.instance.currentUser!.displayName}',
-                            style: Theme.of(context).textTheme.headline5!.
+                            FirebaseAuth.instance.currentUser.displayName,
+                            style: Theme.of(context).textTheme.headline5.
                             copyWith(color: darkMode?Colors.white:Colors.black, fontWeight: FontWeight.bold),
                           ),
                         ],
@@ -109,7 +108,7 @@ class _AccountPageState extends State<AccountPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -128,7 +127,7 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                           ),
                           Text(
-                            FirebaseAuth.instance.currentUser!.email as String,
+                            FirebaseAuth.instance.currentUser.email,
                             style: TextStyle(
                               fontSize: 15.0,
                               fontWeight: FontWeight.bold,
@@ -138,7 +137,7 @@ class _AccountPageState extends State<AccountPage> {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50.0,
                       ),
                       Row(

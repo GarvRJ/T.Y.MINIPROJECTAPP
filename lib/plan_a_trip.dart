@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Trip extends StatefulWidget {
-  const Trip({Key? key}) : super(key: key);
+  const Trip({Key key}) : super(key: key);
 
   @override
   _TripState createState() => _TripState();

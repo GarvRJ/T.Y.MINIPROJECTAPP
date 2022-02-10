@@ -6,30 +6,61 @@ import 'package:flutter/painting.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fuel_ax/account_page.dart';
-import 'package:fuel_ax/login_page.dart';
+import 'package:fuel_ax/animations/fluid_swipe.dart';
 import 'package:fuel_ax/plan_a_trip.dart';
+import 'package:fuel_ax/widgets/listing_expanded.dart';
+//import 'package:http/http.dart' as http;
 
+import 'api.dart';
 import 'constants.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> states = [
+    "Andaman-&-Nicobar","Andhra-Pradesh","Arunachal-Pradesh","Assam","Bihar","Chandigarh","Chhatisgarh","Dadra-Nagarhaveli","Daman-Diu","Delhi","Goa","Gujarat","Haryana","Himachal-Pradesh","Jammu-&-Kashmir","Jharkhand","Karnataka","Kerala","Madhya-Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Pondicherry","Punjab","Rajasthan","Sikkim","Tamil-Nadu","Telangana","Tripura","Uttar-Pradesh","Uttarakhand","West-Bengal"
+  ];
+  List<String> cities = [
+    "SANGLI","PUNE","AURANGABAD","AHMADNAGAR","JALGAON","NANDURBAR","DHULE","NASHIK","KOLHAPUR","SINDHUDURG","SATARA","LATUR","JALNA","BID","PALGHAR","NAGPUR","CHANDRAPUR","WARDHA","AMRAVATI","YAVATMAL","AKOLA","THANE","RAIGARH","RATNAGIRI","GREATER+MUMBAI","MUMBAI+CITY","OSMANABAD","SOLAPUR","GADCHIROLI","GONDIA","NANDED","HINGOLI","BULDHANA","PARBHANI","BHANDARA","WASHIM"
+  ];
+  List<Api> _api = [
+    Api(
+      district: "MUMBAI+CITY",
+      products: [
+        Products(
+            productPrice: '112.11',
+            productName: 'Petrol'
+        ),
+        Products(
+          productName: 'Diesel',
+          productPrice: '102.89'
+        )
+      ]
+    )
+  ];
+
+  String state = "Maharashtra";
+  String city = "MUMBAI+CITY";
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    //List<String> states = ["Andaman-&-Nicobar","Andhra-Pradesh","Arunachal-Pradesh","Assam","Bihar","Chandigarh","Chhatisgarh","Dadra-Nagarhaveli","Daman-Diu","Delhi","Goa","Gujarat","Haryana","Himachal-Pradesh","Jammu-&-Kashmir","Jharkhand","Karnataka","Kerala","Madhya-Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Pondicherry","Punjab","Rajasthan","Sikkim","Tamil-Nadu","Telangana","Tripura","Uttar-Pradesh","Uttarakhand","West-Bengal"];
     var scaffoldKey = GlobalKey<ScaffoldState>();
     Size size = MediaQuery.of(context).size;
     bool darkMode = MediaQuery.of(context).platformBrightness==Brightness.dark;
     return Scaffold(
+      extendBody: false,
       bottomSheet: Container(
         color: darkMode?Colors.black:Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
         child: (
             ElevatedButton(
               child: SizedBox(
@@ -64,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                 onPrimary: darkMode?Colors.black:Colors.white,
                 primary: kPrimaryColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.vertical(top:Radius.circular(20)),
                 ),
               ),
             )
@@ -172,8 +203,8 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Hi ${FirebaseAuth.instance.currentUser!.displayName}!',
-                    style: Theme.of(context).textTheme.headline5!.
+                    'Hi ${FirebaseAuth.instance.currentUser.displayName}',
+                    style: Theme.of(context).textTheme.headline5.
                     copyWith(color: darkMode?Colors.black:Colors.white, fontWeight: FontWeight.bold),
                   ),
                   const Spacer(),
@@ -206,15 +237,34 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     const Icon(Icons.location_on_rounded, color: kPrimaryColor),
                     Expanded(
                       //State
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:0.0),
+                        padding: const EdgeInsets.only(left:5.0),
                           child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                                items: const []
+                            child: DropdownButton<String>(
+                              dropdownColor: Colors.black,
+                              onChanged: (String newVal) => {
+                                setState((){
+                                  state = newVal;
+                                })
+                              },
+                              style: TextStyle(
+                                color: kPrimaryColor
+                              ),
+                              value: state,
+                              items: states.map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value, style: TextStyle(color:kPrimaryColor, fontSize: 12.0),),
+                                    );
+                                  }
+                              ).toList(),
                             ),
                           ),
                       ),
@@ -224,12 +274,28 @@ class _HomePageState extends State<HomePage> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal:8.0),
                         child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                          items: const [
-
-                          ],
-                        )),
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.black,
+                            onChanged: (String newVal) => {
+                              setState((){
+                                city = newVal;
+                              })
+                            },
+                            style: TextStyle(
+                                color: kPrimaryColor
+                            ),
+                            value: city,
+                            items: cities.map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value, style: TextStyle(color:kPrimaryColor, fontSize: 12.0),),
+                                  );
+                                }
+                            ).toList(),
+                          ),
                       ),
+                    )
                     )
                   ],
                 ),
@@ -285,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                                     color: darkMode?Colors.black:Colors.white
                                   ),
                                   ),
-                                  Text('INR 107.85',
+                                  Text(_api.first.products.first.productPrice,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 30.0,
@@ -337,7 +403,7 @@ class _HomePageState extends State<HomePage> {
                                         color: darkMode?Colors.black:Colors.white
                                     ),
                                   ),
-                                  Text('INR 87.85',
+                                  Text(_api.first.products[1].productPrice,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 30.0,
@@ -353,9 +419,17 @@ class _HomePageState extends State<HomePage> {
                     )
                   ]
                 ),
+
               ),
             ),
-
+            ListingExpanded(name:"Sion East", distance: "1.1Km", cars: 2, bikes: 0, lat: "19.044197669339596",long: "72.86488164388184",),
+            ListingExpanded(name: "Sion West", distance: "0.7Km", cars: 8, bikes: 8, lat: "19.044197669339596",long: "72.86488164388184",),
+            ListingExpanded(name: "Chembur", distance: "4.2Km", cars: 6, bikes: 4, lat: "19.069033583153775",long: "72.90106916299065",),
+            ListingExpanded(name: "Bandra", distance: "6.3Km", cars: 5, bikes: 0, lat: "19.06208599623719",long: "72.83572854831618",),
+            ListingExpanded(name: "Mulund", distance: "21.3Km", cars: 2, bikes: 3, lat: "19.178550012825163",long: "72.94489883147799",),
+            SizedBox(
+              height: 20.0,
+            )
           ],
         ),
       )
@@ -365,14 +439,14 @@ class _HomePageState extends State<HomePage> {
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder :(_) {
-      return const LoginPage();
+      return const FluidSwipe(i:0);
     }));
   }
 }
 
 class SlideRightRoute  extends PageRouteBuilder{
   final Widget page;
-  SlideRightRoute({required this.page})
+  SlideRightRoute({this.page})
       : super(
     pageBuilder: (
         BuildContext context,
@@ -398,7 +472,7 @@ class SlideRightRoute  extends PageRouteBuilder{
 
 class ScaleRoute extends PageRouteBuilder {
   final Widget page;
-  ScaleRoute({required this.page})
+  ScaleRoute({this.page})
       : super(
     pageBuilder: (
         BuildContext context,
@@ -427,17 +501,20 @@ class ScaleRoute extends PageRouteBuilder {
         ),
   );
 }
-
+/*
 Future<List<String>> getStates() async{
-  //var url = "https://fuelprice-api-india.herokuapp.com/states/";
-  List<String> states = [];
-  return states;
+  String url = "https://fuelprice-api-india.herokuapp.com";
+  Uri st = Uri.parse("$url/states");
+  var response = await http.get(st);
+  var items = json.decode(response.body);
+  return items;
 }
 
 Future<List<String>> getCities(String state) async{
-  //var url = "https://fuelprice-api-india.herokuapp.com/";
-  //var city = "$state/districts";
-
-  List<String> cities = [];
-  return cities;
+  var url = "https://fuelprice-api-india.herokuapp.com/$state/districts";
+  Uri ct = Uri.parse(url);
+  var response = await http.get(ct);
+  var items = json.decode(response.body);
+  return items;
 }
+*/

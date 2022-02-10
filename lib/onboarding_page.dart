@@ -1,14 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fuel_ax/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fuel_ax/refresh_widget.dart';
 
 import 'home_page.dart';
-import 'login_page.dart';
 
 class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({Key key}) : super(key: key);
 
   @override
   _OnboardingPageState createState() => _OnboardingPageState();
@@ -21,7 +22,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     var listPagesViewModel = [
       PageViewModel(
         title: "Hello",
-        body: "Welcome to India's first travel accessibility app for all.\nClick \'next\' to make your travels smoother.",
+        body: "Welcome to India's first travel accessibility app for all.\nClick 'next' to make your travels smoother.",
         image: const Center(child: Image(image: AssetImage('assets/LOGO.png'))),
         decoration: const PageDecoration(
           titleTextStyle: TextStyle(color: Colors.deepPurple,fontSize: 25.0,fontWeight: FontWeight.w800),
@@ -83,7 +84,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         ),
       ),*/
     ];
-    User? user = FirebaseAuth.instance.currentUser;
+    User user = FirebaseAuth.instance.currentUser;
     return FutureBuilder(
       future: SharedPreferences.getInstance(),
       builder: (context, snapshot){
@@ -104,7 +105,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           return RefreshWidget(snapshot.error.toString());
         }
         else{
-          SharedPreferences? _prefs = snapshot.data as SharedPreferences?;
+          SharedPreferences _prefs = snapshot.data as SharedPreferences;
           return Scaffold(
             backgroundColor: Colors.black,
             body: Padding(
@@ -128,9 +129,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   doneColor: Colors.deepPurple,
                   nextColor: Colors.purpleAccent,
                   onDone: () {
-                    _prefs!.setBool('run', true);
+                    _prefs.setBool('run', true);
                     Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => user==null?const LoginPage():const HomePage()
+                        builder: (context) => user==null?const LoginScreen():const HomePage()
                     ));
                   },
                 ),
