@@ -205,7 +205,10 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     'Hi ${FirebaseAuth.instance.currentUser.displayName}',
                     style: Theme.of(context).textTheme.headline5.
-                    copyWith(color: darkMode?Colors.black:Colors.white, fontWeight: FontWeight.bold),
+                    copyWith(
+                        color: darkMode?Colors.black:Colors.white,
+                        fontWeight: FontWeight.bold
+                    ),
                   ),
                   const Spacer(),
                   IconButton(
@@ -422,11 +425,11 @@ class _HomePageState extends State<HomePage> {
 
               ),
             ),
-            ListingExpanded(name:"Sion East", distance: "1.1Km", cars: 2, bikes: 0, lat: "19.044197669339596",long: "72.86488164388184",),
-            ListingExpanded(name: "Sion West", distance: "0.7Km", cars: 8, bikes: 8, lat: "19.044197669339596",long: "72.86488164388184",),
-            ListingExpanded(name: "Chembur", distance: "4.2Km", cars: 6, bikes: 4, lat: "19.069033583153775",long: "72.90106916299065",),
-            ListingExpanded(name: "Bandra", distance: "6.3Km", cars: 5, bikes: 0, lat: "19.06208599623719",long: "72.83572854831618",),
-            ListingExpanded(name: "Mulund", distance: "21.3Km", cars: 2, bikes: 3, lat: "19.178550012825163",long: "72.94489883147799",),
+            ListingExpanded(name:"Station A", distance: "1.1Km", cars: 2, bikes: 0, lat: "19.044197669339596",long: "72.86488164388184",),
+            ListingExpanded(name: "Station B", distance: "0.7Km", cars: 8, bikes: 8, lat: "19.044197669339596",long: "72.86488164388184",),
+            ListingExpanded(name: "Station C", distance: "4.2Km", cars: 6, bikes: 4, lat: "19.069033583153775",long: "72.90106916299065",),
+            ListingExpanded(name: "Station D", distance: "6.3Km", cars: 5, bikes: 0, lat: "19.06208599623719",long: "72.83572854831618",),
+            ListingExpanded(name: "Station E", distance: "21.3Km", cars: 2, bikes: 3, lat: "19.178550012825163",long: "72.94489883147799",),
             SizedBox(
               height: 20.0,
             )
