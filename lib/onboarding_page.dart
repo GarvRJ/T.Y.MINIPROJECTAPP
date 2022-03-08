@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fuel_ax/login_screen.dart';
+import 'package:fuel_ax/animations/fluid_swipe.dart';
+import 'package:fuel_ax/refresh_widget.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fuel_ax/refresh_widget.dart';
 
 import 'home_page.dart';
 
@@ -16,17 +16,21 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-
   @override
   Widget build(BuildContext context) {
     var listPagesViewModel = [
       PageViewModel(
         title: "Hello",
-        body: "Welcome to India's first travel accessibility app for all.\nClick 'next' to make your travels smoother.",
+        body:
+            "Welcome to India's first travel accessibility app for all.\nClick 'next' to make your travels smoother.",
         image: const Center(child: Image(image: AssetImage('assets/LOGO.png'))),
         decoration: const PageDecoration(
-          titleTextStyle: TextStyle(color: Colors.deepPurple,fontSize: 25.0,fontWeight: FontWeight.w800),
-          bodyTextStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w700, fontSize: 18.0),
+          titleTextStyle: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 25.0,
+              fontWeight: FontWeight.w800),
+          bodyTextStyle: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18.0),
         ),
       ),
       PageViewModel(
@@ -34,8 +38,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
         body: "Be one of our first users to experience seamless travels.",
         image: const Center(child: Image(image: AssetImage('assets/LOGO.png'))),
         decoration: const PageDecoration(
-          titleTextStyle: TextStyle(color: Colors.deepPurple,fontSize: 25.0,fontWeight: FontWeight.w800),
-          bodyTextStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w700, fontSize: 20.0),
+          titleTextStyle: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 25.0,
+              fontWeight: FontWeight.w800),
+          bodyTextStyle: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 20.0),
         ),
       ),
       /*PageViewModel(
@@ -87,8 +95,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
     User user = FirebaseAuth.instance.currentUser;
     return FutureBuilder(
       future: SharedPreferences.getInstance(),
-      builder: (context, snapshot){
-        if(!snapshot.hasData){
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
           return Container(
             color: Colors.black,
             child: Column(
@@ -100,43 +108,48 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ],
             ),
           );
-        }
-        else if(snapshot.hasError){
+        } else if (snapshot.hasError) {
           return RefreshWidget(snapshot.error.toString());
-        }
-        else{
+        } else {
           SharedPreferences _prefs = snapshot.data as SharedPreferences;
           return Scaffold(
-            backgroundColor: Colors.black,
-            body: Padding(
-              padding: const EdgeInsets.fromLTRB(0.0,38.0,0.0,0.0),
-              child: IntroductionScreen(
-                globalBackgroundColor: Colors.black,
+              backgroundColor: Colors.black,
+              body: Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 38.0, 0.0, 0.0),
+                child: IntroductionScreen(
+                  globalBackgroundColor: Colors.black,
                   dotsDecorator: const DotsDecorator(
-                    spacing: EdgeInsets.symmetric(vertical: 0.0, horizontal: 1.0),
-                    color: Colors.grey,
-                    activeColor: Colors.purple
-                  ),
+                      spacing:
+                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 1.0),
+                      color: Colors.grey,
+                      activeColor: Colors.purple),
                   showDoneButton: true,
                   showNextButton: true,
                   showSkipButton: true,
-                  next: const Text("Next", style: TextStyle(fontWeight: FontWeight.w600)),
-                  skip: const Text("Skip", style: TextStyle(fontWeight: FontWeight.w600)),
+                  next: const Text("Next",
+                      style: TextStyle(fontWeight: FontWeight.w600)),
+                  skip: const Text("Skip",
+                      style: TextStyle(fontWeight: FontWeight.w600)),
                   pages: listPagesViewModel,
-                  done: const Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
+                  done: const Text("Done",
+                      style: TextStyle(fontWeight: FontWeight.w600)),
                   color: Colors.deepPurple,
                   skipColor: Colors.deepPurpleAccent,
                   doneColor: Colors.deepPurple,
                   nextColor: Colors.purpleAccent,
                   onDone: () {
                     _prefs.setBool('run', true);
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => user==null?const LoginScreen():const HomePage()
-                    ));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => user == null
+                                ? const FluidSwipe(
+                                    i: 0,
+                                  )
+                                : const HomePage()));
                   },
                 ),
-            )
-            );
+              ));
         }
       },
     );

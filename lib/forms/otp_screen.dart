@@ -42,7 +42,7 @@ class _OtpScreenState extends State<OtpScreen> {
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
-      Image(image: (dark)?const AssetImage('assets/Tech-ShotsLogodark.png'):const AssetImage('assets/Tech-ShotsLogo.png')),
+      Image(image: (dark)?const AssetImage('assets/LOGO.png'):const AssetImage('assets/Tech-ShotsLogo.png')),
       SizedBox(
         height: size.height*0.1,
       ),
