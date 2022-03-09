@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fuel_ax/widgets/RatingScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:rating_dialog/rating_dialog.dart';
 import '../constants.dart';
 import 'listings.dart';
 
@@ -27,6 +28,7 @@ class ListingExpanded extends StatefulWidget {
 }
 
 class _ListingExpandedState extends State<ListingExpanded> {
+
   final String name;
   final String distance;
   final String lat;
@@ -55,6 +57,14 @@ class _ListingExpandedState extends State<ListingExpanded> {
           }),
             child: Listing(name: name,distance: distance,cars: cars,bikes: bikes, open:open)
         ),
+        ///Muskan
+        open?TextButton(onPressed: (){
+          showDialog(
+            context: context,
+            barrierDismissible: true, // set to false if you want to force a rating
+            builder: (context) => RatingScreen(),
+          );
+        }, child: Text('Rating')):SizedBox(),
         open
         ? Container(
             height: size.height*0.3,
