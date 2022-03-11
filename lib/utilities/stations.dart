@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart';
 
 class Stations {
@@ -27,23 +25,5 @@ class Stations {
       return Stations.fromJson(json);
     }).toList();
     return stations;
-  }
-  static Future<List<Stations>> getNewsByCategoryList(String category) async {
-    var url = Uri.parse('https://cms.techshotsapp.com/webservice/news_by_category.php');
-    final response = await post(url,body: {'language_id':'1','category_id':'$category'});
-    final items = json.decode(response.body).cast<Map<String, dynamic>>();
-    List<Stations> news = items.map<Stations>((json) {
-      return Stations.fromJson(json);
-    }).toList();
-    return news;
-  }
-  static Future<List<Stations>> getSearchNews(String search) async{
-    var url = Uri.parse('https://cms.techshotsapp.com/webservice/search_news.php');
-    final response = await post(url,body: {'language_id':'1','search_text':'$search'});
-    final items = json.decode(response.body).cast<Map<String, dynamic>>();
-    List<Stations> news = items.map<Stations>((json) {
-      return Stations.fromJson(json);
-    }).toList();
-    return news;
   }
 }
