@@ -15,11 +15,13 @@ class ListingExpanded extends StatefulWidget {
   final String long;
   final int cars;
   final int bikes;
+  final String id;
   final bool petrol;
   final bool diesel;
   final bool petrolSpeed;
   final bool cng;
   final bool air;
+  final double rating;
 
   const ListingExpanded(
       {Key key,
@@ -33,12 +35,12 @@ class ListingExpanded extends StatefulWidget {
       this.cng,
       this.air,
       this.lat,
-      this.long})
+      this.long, this.id, this.rating})
       : super(key: key);
 
   @override
   _ListingExpandedState createState() => _ListingExpandedState(name, distance,
-      cars, bikes, petrol, diesel, petrolSpeed, cng, air, lat, long);
+      cars, bikes, petrol, diesel, petrolSpeed, cng, air, lat, long, id, rating);
 }
 
 class _ListingExpandedState extends State<ListingExpanded> {
@@ -47,14 +49,15 @@ class _ListingExpandedState extends State<ListingExpanded> {
   final String lat;
   final String long;
   final int cars;
+  final String id;
   final int bikes;
   final bool petrol;
   final bool diesel;
   final bool petrolSpeed;
   final bool cng;
   final bool air;
+  final double rating;
   bool open = false;
-  final double rating = 4.5;
 
   _ListingExpandedState(
       this.name,
@@ -67,7 +70,7 @@ class _ListingExpandedState extends State<ListingExpanded> {
       this.cng,
       this.air,
       this.lat,
-      this.long);
+      this.long, this.id, this.rating);
 
   @override
   Widget build(BuildContext context) {

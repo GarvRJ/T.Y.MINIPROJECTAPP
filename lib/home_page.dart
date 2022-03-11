@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Fuel AX'),
+        title: const Text('Travel AX'),
         titleTextStyle: TextStyle(
           fontSize: 40.0,
           fontWeight: FontWeight.bold,
