@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Fuel AX'),
+        title: const Text('Travel AX'),
         titleTextStyle: TextStyle(
           fontSize: 40.0,
           fontWeight: FontWeight.bold,
@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       //City
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:8.0),
+                        padding: const EdgeInsets.only(left:5.0),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             dropdownColor: Colors.black,
@@ -335,7 +335,7 @@ class _HomePageState extends State<HomePage> {
                                   ]
                               )
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
                           height: 200,
                           width: size.width*0.75,
                           child: Row(
@@ -388,7 +388,7 @@ class _HomePageState extends State<HomePage> {
                               ]
                             )
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
                           height: 200,
                           width: size.width*0.75,
                           child: Row(

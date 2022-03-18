@@ -51,7 +51,7 @@ class _FluidSwipeState extends State<FluidSwipe> {
             slideIconWidget: SlideIconWidget(ind: (page==0)?'SIGN UP':'LOG IN'),
             positionSlideIcon: 0.48,
             pages: pages,
-            onPageChangeCallback: pageChangeCallback,
+            onPageChangeCallback: (a) => pageChangeCallback(a),
             waveType: WaveType.liquidReveal,
             liquidController: liquidController,
             ignoreUserGestureWhileAnimating: true,

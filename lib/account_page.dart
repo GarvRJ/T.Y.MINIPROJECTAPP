@@ -35,7 +35,7 @@ class _AccountPageState extends State<AccountPage> {
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
-        title: const Text('Fuel AX'),
+        title: const Text('Travel AX'),
         titleTextStyle: TextStyle(
           fontSize: 30.0,
           fontWeight: FontWeight.bold,

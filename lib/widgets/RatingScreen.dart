@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
-class RatingScreen extends StatelessWidget {
+import '../utilities/reviews.dart';
 
+class RatingScreen extends StatelessWidget {
+  final String station_id;
+
+  const RatingScreen({Key key, this.station_id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RatingDialog(
@@ -29,14 +33,13 @@ class RatingScreen extends StatelessWidget {
       commentHint: 'Tell us your experience',
       onCancelled: () => print('cancelled'),
       onSubmitted: (response) {
-        print('rating: ${response.rating}, comment: ${response.comment}');
-
+        Reviews.addRating(station_id, response.rating, response.comment);
         // TODO: add your own logic
         if (response.rating < 3.0) {
-          // send their comments to your email or anywhere you wish
-          // ask the user to contact you instead of leaving a bad review
+          // If Ratings are low we can have a grievance registration pop-up or something
+          // similar to know more about any issue that may be present
         } else {
-          // _rateAndReviewApp();
+          // Thank the User for their review.
         }
       },
     );
