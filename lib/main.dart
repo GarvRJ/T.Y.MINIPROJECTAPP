@@ -5,11 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:fuel_ax/animations/fluid_swipe.dart';
 import 'package:fuel_ax/constants.dart';
 import 'package:fuel_ax/refresh_widget.dart';
+import 'package:fuel_ax/register_vehicles_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
 import 'load_screen.dart';
 import 'onboarding_page.dart';
+
+
 
 Future<void> main() async{
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

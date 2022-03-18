@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fuel_ax/new_register_vehicle_widget.dart';
+import 'package:fuel_ax/register_vehicles_screen.dart';
 import 'package:fuel_ax/utilities/constants.dart';
 
 import '../home_page.dart';
@@ -109,7 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
           focusColor: Colors.white,
           elevation: 5.0,
           onPressed: () =>Navigator.pushReplacement(context, MaterialPageRoute(
-              builder: (context) => const HomePage()
+              builder: (context) => RegisterVehicleScreen()
           )),
           padding: const EdgeInsets.symmetric(vertical:15.0),
           shape: RoundedRectangleBorder(

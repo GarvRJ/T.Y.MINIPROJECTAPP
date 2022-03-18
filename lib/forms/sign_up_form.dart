@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fuel_ax/animations/fluid_swipe.dart';
+import 'package:fuel_ax/register_vehicles_screen.dart';
 import 'package:fuel_ax/utilities/constants.dart';
 
 import '../constants.dart';
@@ -27,7 +28,10 @@ class _SignupFormState extends State<SignupForm> {
       child: MaterialButton(
         color: Colors.black,
         elevation: 5.0,
-        onPressed: () => signUp(_email, _password, _phone, _name),
+        onPressed: () async
+        {
+          await signUp(_email, _password, _phone, _name);
+        },
         padding: const EdgeInsets.symmetric(vertical:15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),

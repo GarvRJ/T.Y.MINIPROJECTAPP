@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fuel_ax/register_vehicles_screen.dart';
 
 import 'constants.dart';
 
@@ -12,6 +14,11 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+
+  final _auth=FirebaseAuth.instance;
+  User loggedInUser=FirebaseAuth.instance.currentUser;
+  final _firestore=FirebaseFirestore.instance;
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -152,6 +159,106 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                           )
                         ],
+                      ),
+                      Column(
+                        children: [
+                          StreamBuilder<QuerySnapshot>(
+                            stream: _firestore.collection('RegisteredVehicles').doc('AEjxXIUbqA3H6MtR47iI').collection(loggedInUser.email).snapshots(),
+                            builder: (context,snapshot)
+                            {
+                              List<Widget> VehicleWidget=[];
+                              data.registeredVehicles=[];
+                              List<QueryDocumentSnapshot<Object>> vehicles = snapshot.data.docs;
+
+                              for(var v in vehicles)
+                                {
+                                  final details =v.data() as Map;
+                                  final tireCount=details['VehicleType'];
+                                  final fuelType=details['FuelType'];
+                                  final vehicleNumber=details['VehicleNumber'];
+                                  data.registeredVehicles.add(RV(tireCount: tireCount,fuelType: fuelType,VehicleNumber: vehicleNumber));
+                                  VehicleWidget.add(Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                                    child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.9,
+                                        height: MediaQuery.of(context).size.height * 0.17,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF21192E),
+                                          borderRadius: BorderRadius.circular(10),
+                                          border: Border.all(
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: (
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                        child: Text(
+                                                          'Vehicle Number : ${vehicleNumber}',
+                                                          style: TextStyle(
+                                                            fontFamily: 'Poppins',
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                        child: Text(
+                                                          'Vehicle Type : ${tireCount}-Wheeler',
+                                                          style: TextStyle(
+                                                            fontFamily: 'Poppins',
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                                        child: Text(
+                                                          'Fuel Type : ${fuelType}',
+                                                          style: TextStyle(
+                                                            fontFamily: 'Poppins',
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                        )),
+                                  ));
+                                }
+                              return Column(
+                                children: VehicleWidget,
+                              );
+                            }
+                            ,
+                          )
+                        ],
                       )
                     ],
                   ),
@@ -165,3 +272,5 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 }
+
+

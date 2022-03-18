@@ -49,3 +49,57 @@ InputDecoration kInputStyle(String label,String errortext, IconData preficon) {
     ),
   );
 }
+
+var kSubmitButton=Row(
+  children: const [
+    Expanded(
+      child: Align(
+        alignment: AlignmentDirectional(0, 0),
+        child: Text(
+          'Submit',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Poppins',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+    Padding(
+      padding: EdgeInsets.only(right: 20),
+      child: Icon(
+        Icons.post_add,
+        color: Colors.black,
+        size: 24,
+      ),
+    )
+  ],
+);
+
+var kAddButton=Row(
+  children: const [
+    Expanded(
+      child: Align(
+        alignment: AlignmentDirectional(0, 0),
+        child: Text(
+          'Add',
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Poppins',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+    Padding(
+      padding: EdgeInsets.only(right: 20),
+      child: Icon(
+        Icons.add,
+        color: Colors.black,
+        size: 24,
+      ),
+    )
+  ],
+);
